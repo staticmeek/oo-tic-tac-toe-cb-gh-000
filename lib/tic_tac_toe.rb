@@ -110,7 +110,7 @@ def over?
   end
 end
 
-def winner(win_combination)
+def winner
   if win_combination = won?
     @board[win_combination.first]
   end
