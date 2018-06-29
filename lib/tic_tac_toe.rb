@@ -3,7 +3,7 @@ class TicTacToe
   def initialize(board = nil)
     @board = board || Array.new(9, " ")
   end
-  
+
   WIN_COMBINATIONS = [
     [0,1,2], #WIN_COMBINATIONS [0] Top Row Win
     [3,4,5], #WIN_COMBINATIONS [1] Middle Row Win
@@ -22,7 +22,7 @@ class TicTacToe
     puts "-----------"
     puts " #{@board[6]} | #{@board[7]} | #{@board[8]} "
   end
-  
+
   def input_to_index
   @user_input.to_i - 1
   end
@@ -43,33 +43,27 @@ class TicTacToe
     end
   end
 
+  def turn
+    puts "Please enter 1-9:"
+    @index = gets.strip
+    @index = input_to_index
+    @value = current_player
+    if valid_move?
+      move
+    else
+      turn
+    end
+  end
+
+  def turn_count
+    @board.count{|@value| @value == "X" || @value == "O"}
+  end
+
   def current_player
     turn_count % 2 == 0 ? "X" : "O"
   end
 
-  def turn_count
-    @board.count{|token| token == "X" || token == "O"}
-  end  
-  
-
-
-  
-
-
-
-def turn
-  puts "Please enter 1-9:"
-  @index = gets.strip
-  @index = input_to_index(index)
-  @value = current_player(board)
-  if valid_move?
-    move
-  else
-    turn
-  end
-end
-
-def won?(board)
+def won?
   WIN_COMBINATIONS.each do |win_combination|
     win_index_1 = win_combination[0]
     win_index_2 = win_combination[1]
@@ -80,9 +74,9 @@ def won?(board)
     position_3 = board[win_index_3]
 
     if position_1 == "X" && position_2 == "X" && position_3 == "X"
-      return win_combination
+      return @win_combination
     elsif position_1 == "O" && position_2 == "O" && position_3 == "O"
-      return win_combination
+      return @win_combination
     else
        false
     end
@@ -90,16 +84,16 @@ def won?(board)
    false
 end
 
-def full?(board)
-  if board.any? { |position| position == "" || position == " " || position == nil }
+def full?
+  if @board.any? { |position| position == "" || position == " " || position == nil }
      false
   else
      true
   end
 end
 
-def draw?(board)
-  if !won?(board) && full?(board)
+def draw?
+  if !won? && full?
     puts "Cat's Game!"
     true
   else
@@ -107,17 +101,17 @@ def draw?(board)
   end
 end
 
-def over?(board)
-  if won?(board) || full?(board) || draw?(board)
+def over?
+  if won? || full? || draw?
      true
   else
      false
   end
 end
 
-def winner(board)
-  if win_combination = won?(board)
-    board[win_combination.first]
+def winner
+  if @win_combination = won?
+    @board[win_combination.first]
   end
 end
 
@@ -132,4 +126,3 @@ def play(board)
   end
 
 end
-
