@@ -117,7 +117,7 @@ def winner
 end
 
 def play
-  until over? || won?
+  until over?
     turn
   end
   if won?
