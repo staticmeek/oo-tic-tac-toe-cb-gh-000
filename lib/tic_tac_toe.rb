@@ -31,7 +31,7 @@ class TicTacToe
   @board[index] = value
   end
 
-  def position_taken?(index)
+  def position_taken?()
   !(@board[index].nil? || @board[index] == " ")
   end
 
