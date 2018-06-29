@@ -1,7 +1,7 @@
 class TicTacToe
 
   def initialize(board = nil)
-    @board = array.new(9, " ")
+    @board = board || Array.new(9, " ")
   end
 
 
